@@ -1,5 +1,5 @@
 {
-	"name": "basicserver",
+	"name": "simpleserver",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
@@ -8,5 +8,13 @@
 		"start": "nodemon server/index.js"
 	},
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"body-parser": "^1.20.1",
+		"cors": "^2.8.5",
+		"express": "^4.18.2",
+		"multer": "^1.4.5-lts.1",
+		"nodemon": "^2.0.20",
+		"pg": "^8.8.0"
+	}
 }

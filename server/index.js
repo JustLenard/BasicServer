@@ -5,6 +5,9 @@ const app = express()
 const port = process.env.PORT || 3002
 const { Client } = require('pg')
 
+let multer = require('multer')
+let upload = multer({ dest: './' })
+
 const connection = new Client({
 	connectionString: process.env.DATABASE_URL,
 	ssl: {
@@ -12,16 +15,18 @@ const connection = new Client({
 	},
 })
 
-console.log('f')
 app.use(cors())
 app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: true }))
 
-app.get('/api/get', (req, res) => {
-	const sqlSelect = `SELECT * FROM products;`
-	connection.query(sqlSelect, (err, result) => {
-		res.send(result)
-	})
+app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.json(''))
+
+app.get('/api/credits', (req, res) => {
+	console.log('This is req', req.headers.authorization)
+	console.log('This is req', req.headers.cookie)
+
+	console.log('This is req', req.body)
+	res.send({ amount: 200 })
 })
 
 app.delete('/api/delete', (req, res) => {
@@ -33,8 +38,15 @@ app.delete('/api/delete', (req, res) => {
 	})
 })
 
+app.put('/api/put', (req, res) => {
+	console.log(req)
+
+	// res.send('YOu reached the server. Good shit')
+	res.status(200).send('f you')
+})
+
 app.post('/api/insert', (req, res) => {
-	const FrontEndObj = req.body
+	const FrontEndObj = req.params
 	res.send('OK')
 
 	const sqlInsert = `INSERT INTO products (sku, name, price, type, size, weight, height, length, width) VALUES ('${FrontEndObj.productSku}', 
@@ -48,6 +60,21 @@ app.post('/api/insert', (req, res) => {
 			console.log(err)
 		}
 	)
+})
+
+app.post('/api/file', upload.single(['receivedFiles']), (req, res) => {
+	// const  = req.params
+
+	// console.log('This is res', JSON.stringify(res, null, 2))
+	console.log(req.body)
+	console.log(req.files)
+	console.log(req.file)
+
+	// console.log(req.params)
+
+	// console.log(req)
+
+	res.send('OK')
 })
 
 app.listen(port, () => {
