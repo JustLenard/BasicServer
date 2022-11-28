@@ -29,6 +29,41 @@ const invoice = {
 	],
 }
 
+const rawInvoiceLine = [
+	{
+		NrCrt: 'string',
+		Denumire: 'string',
+		Um: 'string',
+		Cantitatea: 'string',
+		PretUnitar: 'string',
+		Valoarea: 'string',
+		ValoareaTva: 'string',
+		CotaTvalinii: 'string',
+	},
+]
+
+const rawInvoice = {
+	CurrencyCode: 'string',
+	Company: 'string',
+	AncoraTotal: 'string',
+	Client: 'string',
+	Cuiclient: 'string',
+	Cuifurnizor: 'string',
+	DataDocument: 'string',
+	DataScadenta: 'string',
+	Furnizor: 'string',
+	NumarDocument: '1',
+	TotalDocument: '1',
+	ValoareDocument: '1',
+	ValoareTvadocument: '1',
+	VatrateHeader: '1',
+	DenumireDocument: 'string',
+
+	StatusInvoice: 'Processed',
+
+	InvoiceLines: rawInvoiceLine,
+}
+
 const moreInvoices = (amount) => {
 	const arr = []
 	for (let i = 0; i < amount; i++) {
@@ -42,8 +77,23 @@ const moreInvoices = (amount) => {
 		}
 		arr.push(newInv)
 	}
-	console.log(arr)
 	return arr
 }
 
-module.exports = { invoice, moreInvoices }
+const moreRawInvoices = (amount) => {
+	const arr = []
+	for (let i = 0; i < amount; i++) {
+		const newInv = {
+			...rawInvoice,
+			Id: i,
+			DenumireDocument: i,
+			InvoiceLines: rawInvoice.InvoiceLines.map((rawInvoice) => {
+				return { ...rawInvoice }
+			}),
+		}
+		arr.push(newInv)
+	}
+	return arr
+}
+
+module.exports = { invoice, moreInvoices, moreRawInvoices }

@@ -4,7 +4,7 @@ const cors = require('cors')
 const app = express()
 const port = process.env.PORT || 3002
 const { Client } = require('pg')
-const { moreInvoices } = require('./data.js')
+const { moreInvoices, moreRawInvoices } = require('./data.js')
 
 let multer = require('multer')
 let upload = multer({ dest: './' })
@@ -23,6 +23,15 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // app.use(bodyParser.json(''))
 
 app.get('/api/credits', (req, res) => {
+	console.log('This is req', req.headers.authorization)
+	console.log('This is req', req.headers.cookie)
+
+	console.log('This is req', req.body)
+	res.send({ amount: 200 })
+})
+
+app.get('api/CreditManagement', (req, res) => {
+	console.log('what the hell man')
 	console.log('This is req', req.headers.authorization)
 	console.log('This is req', req.headers.cookie)
 
@@ -65,7 +74,10 @@ app.post('/api/insert', (req, res) => {
 
 app.get('/api/Invoice', (req, res) => {
 	// console.log('This is req', req)
-	res.send(moreInvoices(20))
+	//
+	// res.send(moreInvoices(20))
+	// console.log('This is message')
+	res.send(moreRawInvoices(2))
 })
 
 app.post('/api/file', upload.single(['receivedFiles']), (req, res) => {
