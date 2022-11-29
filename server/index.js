@@ -30,15 +30,6 @@ app.get('/api/credits', (req, res) => {
 	res.send({ amount: 200 })
 })
 
-app.get('api/CreditManagement', (req, res) => {
-	console.log('what the hell man')
-	console.log('This is req', req.headers.authorization)
-	console.log('This is req', req.headers.cookie)
-
-	console.log('This is req', req.body)
-	res.send({ amount: 200 })
-})
-
 app.delete('/api/delete', (req, res) => {
 	const toDelete = req.body
 	res.send('OK')
@@ -72,12 +63,21 @@ app.post('/api/insert', (req, res) => {
 	)
 })
 
+app.put('/api/CreditManagement/subtractCredits', upload.none(), (req, res) => {
+	console.log('what the hell man')
+	console.log(req.body)
+	res.send('hey')
+
+	// res.send(moreRawInvoices(2))
+})
+
 app.get('/api/Invoice', (req, res) => {
 	// console.log('This is req', req)
 	//
+	// console.log('why the fuck those this route works')
 	// res.send(moreInvoices(20))
 	// console.log('This is message')
-	res.send(moreRawInvoices(2))
+	res.send(moreRawInvoices(10))
 })
 
 app.post('/api/file', upload.single(['receivedFiles']), (req, res) => {

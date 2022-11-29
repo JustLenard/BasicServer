@@ -31,32 +31,33 @@ const invoice = {
 
 const rawInvoiceLine = [
 	{
-		NrCrt: 'string',
-		Denumire: 'string',
-		Um: 'string',
-		Cantitatea: 'string',
-		PretUnitar: 'string',
-		Valoarea: 'string',
-		ValoareaTva: 'string',
-		CotaTvalinii: 'string',
+		NrCrt: '1',
+		Denumire: 'hey',
+		Um: 'hey',
+		Cantitatea: '1',
+		PretUnitar: '1',
+		Valoarea: '1',
+		ValoareaTva: '1',
+		CotaTvalinii: '1',
 	},
 ]
 
 const rawInvoice = {
-	CurrencyCode: 'string',
+	CurrencyCode: 'Ron',
 	Company: 'string',
-	AncoraTotal: 'string',
+	AncoraTotal: '22',
 	Client: 'string',
-	Cuiclient: 'string',
-	Cuifurnizor: 'string',
-	DataDocument: 'string',
-	DataScadenta: 'string',
+	Cuiclient: '43',
+	Cuifurnizor: '43',
+	DataDocument: '11/11/2022',
+	DataScadenta: '11/11/2022',
 	Furnizor: 'string',
 	NumarDocument: '1',
 	TotalDocument: '1',
 	ValoareDocument: '1',
 	ValoareTvadocument: '1',
 	VatrateHeader: '1',
+	DenumireDocument: 'string',
 	DenumireDocument: 'string',
 
 	StatusInvoice: 'Processed',
@@ -85,8 +86,8 @@ const moreRawInvoices = (amount) => {
 	for (let i = 0; i < amount; i++) {
 		const newInv = {
 			...rawInvoice,
-			Id: i,
-			DenumireDocument: i,
+			Id: makeRandomId(),
+			DenumireDocument: makeRandomId(),
 			InvoiceLines: rawInvoice.InvoiceLines.map((rawInvoice) => {
 				return { ...rawInvoice }
 			}),
@@ -95,5 +96,7 @@ const moreRawInvoices = (amount) => {
 	}
 	return arr
 }
+
+const makeRandomId = () => (Math.random() * Math.random() * 10 ** 5).toFixed()
 
 module.exports = { invoice, moreInvoices, moreRawInvoices }
