@@ -5,6 +5,7 @@ const app = express()
 const port = process.env.PORT || 3002
 const { Client } = require('pg')
 const { moreInvoices, moreRawInvoices } = require('./data.js')
+const fs = require('fs')
 
 let multer = require('multer')
 let upload = multer({ dest: './' })
@@ -81,18 +82,26 @@ app.get('/api/Invoice', (req, res) => {
 })
 
 app.post('/api/file', upload.single(['receivedFiles']), (req, res) => {
-	// const  = req.params
-
-	// console.log('This is res', JSON.stringify(res, null, 2))
 	console.log(req.body)
-	console.log(req.files)
 	console.log(req.file)
-
-	// console.log(req.params)
-
-	// console.log(req)
-
 	res.send('OK')
+})
+
+app.post('/api/Invoice/export', upload.none(), (req, res) => {
+	console.log(req.body)
+
+	// const stream = fs.createReadStream('../assets/connor.png')
+	// const stream = fs.createReadStream('assets/connor.png')
+	const stream = fs.createReadStream('assets/csv.csv')
+
+	// console.log('This is stream', stream
+	// stream.on('data', (data) => {
+	// 	var chunk = data.toString()
+	// 	console.log(chunk)
+	// })
+
+	// res.send('thefuck')
+	stream.pipe(res)
 })
 
 app.listen(port, () => {
